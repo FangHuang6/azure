@@ -5,7 +5,10 @@ import json
 from flask import Flask, request, jsonify
 import numpy as np
 
-clf = joblib.load('rf_model.joblib') 
+clf1 = joblib.load('svc_model.joblib')
+clf2 = joblib.load('rf_model.joblib')
+clf3 = joblib.load('knn_model.joblib')
+clf4 = joblib.load('final_lr_model.joblib')
 
 with open('dummy_column_mapper.json') as fin:
     dummy_column_mapper = json.load(fin)
@@ -50,9 +53,11 @@ def predict():
     for col in col_order:
         ordered_payload[col] = payload[col]
     
-    prediction = int(clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
+    prediction1 = clf1.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
+    prediction2 = clf2.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
+    prediction3 = clf3.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
     
-    return str(prediction)
+    return str(prediction1)
 
 
 if __name__ == '__main__':
