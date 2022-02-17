@@ -6,7 +6,9 @@ from flask import Flask, request, jsonify
 import numpy as np
 
 clf1 = joblib.load('svc_model.joblib')
-
+clf2 = joblib.load('rf_model.joblib')
+clf3 = joblib.load('knn_model.joblib')
+clf4 = joblib.load('final_lr_model.joblib')
 
 with open('dummy_column_mapper.json') as fin:
     dummy_column_mapper = json.load(fin)
