@@ -53,11 +53,9 @@ def predict():
     for col in col_order:
         ordered_payload[col] = payload[col]
     
-    prob = []
     prediction1 = svc.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    prob.append(prediction1)
 
-    return prob[0]
+    return prediction1
 
 
 if __name__ == '__main__':
