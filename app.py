@@ -50,9 +50,6 @@ def predict():
         ordered_payload[col] = payload[col]
     
     prob = []
-    clf1 = joblib.load('svc_model.joblib')
-    prediction1 = clf1.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    prob.append(prediction1)
     clf1 = joblib.load('rf_model.joblib')
     prediction2 = clf1.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
     prob.append(prediction2)   
