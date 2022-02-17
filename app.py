@@ -5,7 +5,7 @@ import json
 from flask import Flask, request, jsonify
 import numpy as np
 
-
+svc,RF_model,knn,lr_2 = joblib.load('model.joblib')
 
 
 
@@ -54,14 +54,9 @@ def predict():
         ordered_payload[col] = payload[col]
     
     prob = []
-    clf1 = joblib.load('svc_model.joblib')
-    prediction1 = clf1.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    clf1 = joblib.load('knn_model.joblib')
-    prediction3 = clf1.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-  
+    prediction1 = svc.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
     prob.append(prediction1)
-    prob.append(prediction3)
-    clf1 = joblib.load('final_lr_model.joblib')
+
     return prob[0]
 
 
