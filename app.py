@@ -1,15 +1,11 @@
 # -*- coding: utf-8 -*-
 import joblib
 import json
-import sklearn
 
 from flask import Flask, request, jsonify
 import numpy as np
 
-clf1 = joblib.load('svc_model.joblib')
-clf2 = joblib.load('rf_model.joblib')
-clf3 = joblib.load('knn_model.joblib')
-clf4 = joblib.load('final_lr_model.joblib')
+clf = joblib.load('svc_model.joblib') 
 
 with open('dummy_column_mapper.json') as fin:
     dummy_column_mapper = json.load(fin)
@@ -54,16 +50,7 @@ def predict():
     for col in col_order:
         ordered_payload[col] = payload[col]
     
-    prob = []
-    prediction1 = clf1.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    prediction2 = clf2.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    prediction3 = clf3.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    
-    prob.append(prediction1)
-    prob.append(prediction2)
-    prob.append(prediction3)
-    
-    prediction = int(clf4.predict(np.array(prob).reshape(1, -1)))
+    prediction = int(clf.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
     
     return str(prediction)
 
