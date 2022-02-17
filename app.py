@@ -53,16 +53,7 @@ def predict():
     for col in col_order:
         ordered_payload[col] = payload[col]
     
-    prob = []
-    prediction1 = clf1.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    prediction2 = clf2.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    prediction3 = clf3.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
-    
-    prob.append(prediction1)
-    prob.append(prediction2)
-    prob.append(prediction3)
-    
-    prediction = int(clf4.predict(np.array(prob).reshape(1, -1)))
+    prediction = int(clf1.predict(np.array(list(ordered_payload.values())).reshape(1, -1)))
     
     return str(prediction)
 
