@@ -59,10 +59,9 @@ def predict():
     clf1 = joblib.load('knn_model.joblib')
     prediction3 = clf1.predict_proba(np.array(list(ordered_payload.values())).reshape(1, -1))[0][1]
     prob.append(prediction3)   
-    clf1 = joblib.load('final_lr_model.joblib')
-    prediction = int(clf1.predict(np.array(prob).reshape(1, -1)))
+
     
-    return str(prediction)
+    return prob
 
 
 if __name__ == '__main__':
